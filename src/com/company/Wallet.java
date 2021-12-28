@@ -1,18 +1,21 @@
 package com.company;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Wallet {
-    int[] coins;
+    HashSet<Integer> coins;
     int maxCoin;
     public Wallet(int... coins){
-        this.coins = coins.clone();
-        maxCoin = Integer.MIN_VALUE;
-        for(int coin : this.coins){
+        this.coins = new HashSet<Integer>();
+        for(int coin : coins){
+            this.coins.add(coin);
             if(coin>maxCoin){
                 maxCoin = coin;
             }
         }
+
     }
 
     public int getCountOfPaymentMethods(int resultSum){
