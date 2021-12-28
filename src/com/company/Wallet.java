@@ -8,8 +8,11 @@ public class Wallet {
     HashSet<Integer> coins;
     int maxCoin;
     public Wallet(int... coins){
-        this.coins = new HashSet<Integer>();
+        this.coins = new HashSet<Integer>(); //чтобы исключить повторения номиналов
         for(int coin : coins){
+            if (coin<1){
+                throw new RuntimeException("Negative nominal of coin");//ошибка отрицательных и нулевых номиналов
+            }
             this.coins.add(coin);
             if(coin>maxCoin){
                 maxCoin = coin;
