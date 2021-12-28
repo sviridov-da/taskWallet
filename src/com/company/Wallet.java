@@ -1,8 +1,6 @@
 package com.company;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Wallet {
     HashSet<Integer> coins;
@@ -21,6 +19,23 @@ public class Wallet {
 
     }
 
+    public List<Integer> getMinPossibleCoins(int resultSum){
+        int[] tmpResults = new int[resultSum+1];
+        List<Integer>[] currentCoins = new List[resultSum+1];
+        tmpResults[0] = 0;
+        currentCoins[0] = new ArrayList<>();
+        for(int i = 1; i<tmpResults.length; i++){
+            currentCoins[i] = new ArrayList<>();
+            for(int coin : coins){
+                if(i-coin>=0 && (tmpResults[i]==0 || (tmpResults[i]>tmpResults[i-coin]+1))){
+                    currentCoins[i] = new ArrayList<>(currentCoins[i-coin]);
+                    currentCoins[i].add(coin);
+                    tmpResults[i] = tmpResults[i-coin]+1;
+                }
+            }
+        }
+        return currentCoins[resultSum];
+    }
     public int getCountOfPaymentMethods(int resultSum){
         return getTmpResultFor(resultSum, maxCoin);
     }
